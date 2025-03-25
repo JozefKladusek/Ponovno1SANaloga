@@ -30,6 +30,7 @@ def mouse_callback(event, x, y, flags, slika):
 
 
         selection_complete = True
+        
         pass
         
 def zmanjsaj_sliko(slika, sirina, visina):
@@ -72,7 +73,9 @@ if __name__ == '__main__':
         #in ne pozabite, da ni nujno da je škatla kvadratna.
 	
 	#slika = cv.imread('.utils/lenna.png')
+	
     height = 300
+    
     width = 260
 
 
@@ -92,10 +95,12 @@ if __name__ == '__main__':
         print('Kamera ni bila odprta.')
     else:
         ret, slika = kamera.read()
+        
         slikaTemp = zmanjsaj_sliko(slika, 260, 300)
 
 	
         cv.namedWindow('Select Skin Area')
+        
         cv.setMouseCallback('Select Skin Area', mouse_callback, slikaTemp)
 
 
