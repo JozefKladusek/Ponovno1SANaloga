@@ -9,6 +9,27 @@ selection_complete = False
 
 def mouse_callback(event, x, y, flags, slika):
 
+    #nastavim globalne spremenljvike, ki jih potem uporabljam v main
+    #čakam dokler uporabnik ne pritisne levega gumba in si zapomnim kordinate na sliki
+    #čakam dokler uporabnik ne spusti gumba in si zapomnim kordinate na sliki
+    #narišem kvadrat
+
+    global levo_zgorajx,levo_zgorajy,desno_spodajx,desno_spodajy, selection_complete
+
+    if event == cv.EVENT_LBUTTONDOWN:
+
+        levo_zgorajx = x
+        levo_zgorajy = y
+
+    elif event == cv.EVENT_LBUTTONUP:
+
+        desno_spodajx = x
+        desno_spodajy = y
+
+        cv.rectangle(slika, (levo_zgorajx, levo_zgorajy), (desno_spodajx, desno_spodajy), (0, 255, 0), 2)
+
+
+        selection_complete = True
         pass
         
 def zmanjsaj_sliko(slika, sirina, visina):
@@ -73,6 +94,9 @@ if __name__ == '__main__':
         ret, slika = kamera.read()
         slikaTemp = zmanjsaj_sliko(slika, 260, 300)
 
+	
+        cv.namedWindow('Select Skin Area')
+        cv.setMouseCallback('Select Skin Area', mouse_callback, slikaTemp)
 
 
     pass
