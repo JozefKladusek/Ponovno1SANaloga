@@ -47,7 +47,39 @@ def prestej_piklse_z_barvo_koze(slika, barva_koze) -> int:
 
 
 def doloci_barvo_koze(slika, levo_zgoraj, desno_spodaj) :
-    
+    '''Ta funkcija se kliče zgolj 1x na prvi sliki iz kamere.
+    Vrne barvo kože v območju ki ga definira oklepajoča škatla (levo_zgoraj, desno_spodaj).
+      Način izračuna je prepuščen vaši domišljiji.'''
+
+
+    #v pixel_values dam vrednosti BGR iz podanega območja slike
+    #BGR [0][1][2], ter delim z stevilom pikslov len(pixel_values)
+    #shranim vse tri vrednosti v avg_color_int in ga vrnem
+    pixel_values = []
+    pixel_valuesB = 0
+    pixel_valuesG = 0
+    pixel_valuesR = 0
+
+    for y in range(levo_zgoraj[1], desno_spodaj[1]):
+        for x in range(levo_zgoraj[0], desno_spodaj[0]):
+            pixel_values.append(slika[y, x])
+
+
+
+    pixel_valuesB = np.sum([pixel[0] for pixel in pixel_values])
+    pixel_valuesG = np.sum([pixel[1] for pixel in pixel_values])
+    pixel_valuesR = np.sum([pixel[2] for pixel in pixel_values])
+
+    pixel_valuesB = int(pixel_valuesB / len(pixel_values))
+    pixel_valuesG = int(pixel_valuesG / len(pixel_values))
+    pixel_valuesR = int(pixel_valuesR / len(pixel_values))
+
+    print("moj bgr:", pixel_valuesB,pixel_valuesG,pixel_valuesR)
+
+
+    avg_color_int = (pixel_valuesB, pixel_valuesG, pixel_valuesR)
+
+    return avg_color_int
     pass
 
 def pobarvaj_sliko(slika,skatle) :
