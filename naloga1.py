@@ -12,7 +12,8 @@ def mouse_callback(event, x, y, flags, slika):
         pass
         
 def zmanjsaj_sliko(slika, sirina, visina):
-    
+    '''Zmanjšaj sliko na velikost sirina x visina.'''
+    return cv.resize(slika, (sirina, visina))
     pass
 
 def obdelaj_sliko_s_skatlami(slika, sirina_skatle, visina_skatle, barva_koze) -> list:
@@ -48,7 +49,29 @@ if __name__ == '__main__':
 
         #Kako velikost prebirne škatle vpliva na hitrost algoritma in točnost detekcije? Poigrajte se s parametroma velikost_skatle
         #in ne pozabite, da ni nujno da je škatla kvadratna.
+	
+	#slika = cv.imread('.utils/lenna.png')
+    height = 300
+    width = 260
 
+
+
+
+    #if slika is None:
+    #    print('Slika ni bila naložena.')
+    #else:
+    #    print('Slika je bila naložena.')
+
+    ''' pridobim sliko iz kamere in označim del slike kjer je koža. Ko uporabnik označi naredim povprečni 
+    BGR označenega območja na sliki ter spodnjo in zgornjo mejo'''
+
+    kamera = cv.VideoCapture(0)
+
+    if not kamera.isOpened():
+        print('Kamera ni bila odprta.')
+    else:
+        ret, slika = kamera.read()
+        slikaTemp = zmanjsaj_sliko(slika, 260, 300)
 
 
 
