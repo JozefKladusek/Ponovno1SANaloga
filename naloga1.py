@@ -30,7 +30,6 @@ def mouse_callback(event, x, y, flags, slika):
 
 
         selection_complete = True
-        
         pass
         
 def zmanjsaj_sliko(slika, sirina, visina):
@@ -73,9 +72,7 @@ if __name__ == '__main__':
         #in ne pozabite, da ni nujno da je škatla kvadratna.
 	
 	#slika = cv.imread('.utils/lenna.png')
-	
     height = 300
-    
     width = 260
 
 
@@ -95,13 +92,38 @@ if __name__ == '__main__':
         print('Kamera ni bila odprta.')
     else:
         ret, slika = kamera.read()
-        
         slikaTemp = zmanjsaj_sliko(slika, 260, 300)
 
 	
         cv.namedWindow('Select Skin Area')
-        
         cv.setMouseCallback('Select Skin Area', mouse_callback, slikaTemp)
 
+	while True:
 
+            cv.imshow('Select Skin Area', slikaTemp)
+
+
+            if selection_complete:
+
+
+
+                avg_skin_tone_int = doloci_barvo_koze(slikaTemp, (levo_zgorajx, levo_zgorajy), (desno_spodajx, desno_spodajy))
+                av_1B = avg_skin_tone_int[0] - 30
+                av_1G = avg_skin_tone_int[1] - 30
+                av_1R = avg_skin_tone_int[2] - 30
+                av_2B = avg_skin_tone_int[0] + 30
+                av_2G = avg_skin_tone_int[1] + 30
+                av_2R = avg_skin_tone_int[2] + 30
+                print(levo_zgorajx, levo_zgorajy, desno_spodajx, desno_spodajy)
+                print('Average color of selected area (BGR):', avg_skin_tone_int)
+                print(av_1B,av_1G,av_1R)
+                print(av_2B,av_2G,av_2R)
+
+
+                selection_complete = False
+
+
+            key = cv.waitKey(1) & 0xFF
+            if key == ord('q'):
+                break
     pass
