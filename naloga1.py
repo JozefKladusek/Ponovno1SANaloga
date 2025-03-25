@@ -13,6 +13,7 @@ def mouse_callback(event, x, y, flags, slika):
         
 def zmanjsaj_sliko(slika, sirina, visina):
     '''Zmanjšaj sliko na velikost sirina x visina.'''
+    '''Zmanjsamo jo zato, ker na velikih slikah je veliko več računanja, kot na manjših slikah'''
     return cv.resize(slika, (sirina, visina))
     pass
 
